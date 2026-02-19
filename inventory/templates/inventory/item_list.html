@@ -1,15 +1,66 @@
-<h1>Shop</h1>
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-  {% for item in items %}
-    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
-      {% if item.image %}
-        <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 100%;">
-      {% endif %}
-      <h3>{{ item.name }}</h3>
-      <p>{{ item.description }}</p>
-      <p><strong>Cena: {{ item.price }} zł</strong></p>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mój Nowoczesny Sklep</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .product-card { 
+            transition: transform 0.2s; 
+            border: none; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img { height: 200px; object-fit: cover; }
+        .price-tag { color: #198754; font-weight: bold; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark mb-5">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">🚀 Mój Sklep - Produkty</span>
     </div>
-  {% empty %}
-    <p>Brak produktów w bazie.</p>
-  {% endfor %}
+</nav>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for item in items %}
+        <div class="col">
+            <div class="card h-100 product-card">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top product-img" alt="{{ item.name }}">
+                {% else %}
+                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center product-img">
+                        Brak zdjęcia
+                    </div>
+                {% endif %}
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">{{ item.name }}</h5>
+                    <p class="card-text text-muted">{{ item.description|truncatewords:20|default:"Brak opisu produktu." }}</p>
+                    <p class="price-tag">{{ item.price }} zł</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3">
+                    <button class="btn btn-primary w-100 shadow-sm">Kup teraz</button>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center mt-5">
+            <h3 class="text-muted">Obecnie nie mamy żadnych produktów.</h3>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+
+<footer class="py-4 mt-5 bg-dark text-white-50 text-center">
+    <div class="container">
+        <small>&copy; 2026 Mój Sklep Azure. Wszelkie prawa zastrzeżone.</small>
+    </div>
+</footer>
+
+</body>
+</html>

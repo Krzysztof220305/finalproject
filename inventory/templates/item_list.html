@@ -1,0 +1,8 @@
+<h1>Mój Sklep - Lista produktów</h1>
+<ul>
+  {% for item in items %}
+    <li>{{ item.name }} - {{ item.price }} zł</li>
+  {% empty %}
+    <li>Brak produktów w bazie.</li>
+  {% endfor %}
+</ul>

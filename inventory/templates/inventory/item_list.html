@@ -1,8 +1,15 @@
-<h1>Mój Sklep - Lista produktów</h1>
-<ul>
+<h1>Shop</h1>
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
   {% for item in items %}
-    <li>{{ item.name }} - {{ item.price }} zł</li>
+    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
+      {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 100%;">
+      {% endif %}
+      <h3>{{ item.name }}</h3>
+      <p>{{ item.description }}</p>
+      <p><strong>Cena: {{ item.price }} zł</strong></p>
+    </div>
   {% empty %}
-    <li>Brak produktów w bazie.</li>
+    <p>Brak produktów w bazie.</p>
   {% endfor %}
-</ul>
+</div>

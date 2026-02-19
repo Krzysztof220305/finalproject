@@ -1,9 +1,13 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.item_list, name='item_list'),
-    path('add/', views.item_create, name='item_create'),
-    path('update/<int:id>/', views.item_update, name='item_update'),
-    path('delete/<int:id>/', views.item_delete, name='item_delete'),
+    path('admin/', admin.site.urls), # Tu powinny być .urls
+    path('', include('inventory.urls')),
 ]
+
+# Dodaj to, aby Azure wiedział jak serwować zdjęcia w trybie DEBUG
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

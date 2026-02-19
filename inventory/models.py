@@ -1,13 +1,9 @@
 from django.db import models
 
 class Item(models.Model):
-    """
-    Model representing an item in the inventory.
-    Stores name, description, and an image hosted on Azure Blob Storage.
-    """
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00) # Tego brakowało
     image = models.ImageField(upload_to='items/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
